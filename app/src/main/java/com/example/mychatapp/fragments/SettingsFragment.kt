@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.mychatapp.R
 import com.example.mychatapp.databinding.FragmentSettingsBinding
 import com.example.mychatapp.model.User
@@ -44,6 +45,15 @@ class SettingsFragment : Fragment() {
     private var storageRef: StorageReference? = null
     private var coverChecker: String? = null
     private var socialChecker: String? = null
+
+    private val getCommentMedia = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val selectedFileUri = result.data?.data
+            imageUri = selectedFileUri
+            Toast.makeText(context,"uploading....", Toast.LENGTH_LONG).show()
+            uploadImageToDatabase()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -178,21 +188,10 @@ class SettingsFragment : Fragment() {
     }
 
     private fun pickImage() {
-        //change it cause it is depricated
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(intent, RequestCode)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == RequestCode && resultCode == Activity.RESULT_OK && data!!.data != null){
-            imageUri = data.data
-            Toast.makeText(context,"uploading....", Toast.LENGTH_LONG).show()
-            uploadImageToDatabase()
-        }
+        getCommentMedia.launch(intent)
     }
 
     private fun uploadImageToDatabase() {

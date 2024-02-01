@@ -17,6 +17,9 @@
         android:theme="@style/Theme.MyChatApp"
         tools:targetApi="31">
         <activity
+            android:name=".PracActivity"
+            android:exported="false" />
+        <activity
             android:name=".MessageChatActivity"
             android:exported="false" />
         <activity
@@ -36,7 +39,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>

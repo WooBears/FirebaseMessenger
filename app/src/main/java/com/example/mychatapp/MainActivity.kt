@@ -47,17 +47,6 @@ class MainActivity : AppCompatActivity() {
 
         val tabLayout = binding.tabLayout
         val viewPager: ViewPager = binding.viewPager
-     /*  val viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
-
-        viewPagerAdapter.addFragment(ChatsFragment(), "Chats")
-        viewPagerAdapter.addFragment(SearchFragment(), "Search")
-        viewPagerAdapter.addFragment(SettingsFragment(), "Settings")
-
-        viewPager.adapter = viewPagerAdapter
-        tabLayout.setupWithViewPager(viewPager)
-
-      */
-        8885878088
 
         val ref = FirebaseDatabase.getInstance().reference.child("Chats")
         ref!!.addValueEventListener(object : ValueEventListener {
@@ -137,13 +126,11 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menu_main,menu)
         return true
     }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when(item.itemId)
